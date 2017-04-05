@@ -23,7 +23,7 @@ router.use(require('./root'))
 //private routes
 
 // router.use(require('./logout'))
-// router.use(require('./orders'))
+router.use(require('./order'))
 
 
 module.exports = router
