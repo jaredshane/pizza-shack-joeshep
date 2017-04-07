@@ -3,7 +3,7 @@
 const { bookshelf } = require('../db/database')
 
 const Topping = bookshelf.Model.extend({
-  tableName: 'topping'
+  tableName: 'toppings'
 })
 
 module.exports = Topping
