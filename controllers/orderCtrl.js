@@ -3,7 +3,7 @@
 const Order = require('../models/order')
 const { knex } = require('../db/database')
 const Size = () => knex('sizes')
-const Topping = () => knex('topping')
+const Topping = () => knex('toppings')
 
 
 const getToppings = () =>
