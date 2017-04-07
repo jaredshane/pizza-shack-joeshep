@@ -12,17 +12,17 @@ router.use(require('./register'))
 router.use(require('./root'))
 
 //login guard middleware
-// router.use( (req, res, next) => {
-//   if (req.isAuthenticated()) {
-//     next()
-//   } else {
-//     res.redirect('/login')
-//   }
-// })
+router.use( (req, res, next) => {
+  if (req.isAuthenticated()) {
+    next()
+  } else {
+    res.redirect('/login')
+  }
+})
 
-//private routes
+// private routes
 
-// router.use(require('./logout'))
+router.use(require('./logout'))
 router.use(require('./order'))
 
 
