@@ -23,8 +23,30 @@ app.locals.errors = {}
 app.locals.body.magic = "Foooo!"
 
 //Middleware
-app.use(express.static('public'))
+app.use(cookieParser('secretpizza'))
+app.use(session({cookie: {maxAge: 60000}, secret: 'secretpizza', resave: true, saveUninitialized: false}))
+app.use(flash())
 app.use(bodyParser.urlencoded({extended: false}))
+app.use(session({
+    store: new KnexSessionStore({
+      knex,
+      tablename: 'sessions'
+    }),
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.SESSION_SECRET || 'pizzashacksupersecretkey'
+}))
+
+require('./lib/passport-strategies')
+app.use(passport.initialize())
+app.use(passport.session())
+
+app.use( (req, res, next) => {
+  app.locals.email = req.user && req.user.email
+  next()
+})
+
+app.use(express.static('public'))
 app.use(routes)
 
 app.use((req, res) => {
